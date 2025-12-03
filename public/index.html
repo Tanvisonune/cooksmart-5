@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CookSmart - Home</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <style>
+    .carousel-container {
+      width: 100%;
+      max-width: 900px;
+      margin: 32px auto 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.12);
+      background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      /* Add a background image */
+      /* background-image: url('https://img.freepik.com/free-photo/ingredients-cabbage-carrot-pie-cabbage-carrots-eggs-flour-milk-butter-spices-white-background_127032-2819.jpg?semt=ais_hybrid&w=740&q=80');
+      background-size: cover;
+      background-position: center;
+      background-blend-mode: overlay; */
+    }
+    .carousel-images {
+      position: relative;
+      width: 100%;
+      height: 350px;
+    }
+    .carousel-img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+    .carousel-img.active {
+      opacity: 1;
+      z-index: 1;
+    }
+    @media (max-width:900px){
+      .carousel-container { max-width: 100%; }
+      .carousel-images { height: 180px; }
+    }
+  </style>
+</head>
+<body class="bg-home">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-brand" target="_blank" rel="noopener noreferrer">🍳 CookSmart</a>
+      <ul class="navbar-menu">
+        <li><a href="index.html" class="active" target="_blank" rel="noopener noreferrer">Home</a></li>
+        <li><a href="discover.html" target="_blank" rel="noopener noreferrer">Discover</a></li>
+        <li><a href="trending.html" target="_blank" rel="noopener noreferrer">Trending</a></li>
+        <li><a href="about.html" target="_blank" rel="noopener noreferrer">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Autoplaying Carousel (No Controls) -->
+  <div class="carousel-container">
+    <div class="carousel-images">
+      <img src="https://www.shutterstock.com/image-photo/luxury-table-features-two-elegant-600nw-2534996949.jpg" class="carousel-img active" alt="Delicious food 1">
+      <img src="https://thumbs.dreamstime.com/b/creamy-pasta-dish-close-up-dark-background-food-photography-recipe-illustration-357796058.jpg" class="carousel-img" alt="Delicious food 2">
+      <img src="https://scx2.b-cdn.net/gfx/news/2020/healthyfood.jpg" class="carousel-img" alt="Delicious food 3">
+    </div>
+  </div>
+  <script>
+    // Simple JS for autoplaying carousel
+    window.addEventListener('DOMContentLoaded', () => {
+      const images = document.querySelectorAll('.carousel-img');
+      let current = 0;
+      setInterval(() => {
+        images[current].classList.remove('active');
+        current = (current + 1) % images.length;
+        images[current].classList.add('active');
+      }, 2500); // Change image every 2.5 seconds
+    });
+  </script>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="features-section">
+      <div class="feature-card">
+        <span class="feature-icon">🔍</span>
+        <h4>Smart Search</h4>
+        <p>Find recipes based on ingredients you already have at home</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⭐</span>
+        <h4>Community Rated</h4>
+        <p>Discover top-rated recipes from our cooking community</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📱</span>
+        <h4>Mobile Friendly</h4>
+        <p>Cook anywhere with our responsive mobile interface</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎯</span>
+        <h4>Personalized</h4>
+        <p>Get recommendations based on your cooking preferences</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 CookSmart. Made with ❤️</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CookSmart - About</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body.bg-about {
+      background: linear-gradient(120deg, #f8fafc 60%, #eef2ff 100%);
+      min-height: 100vh;
+    }
+    .about-section {
+      background: rgba(255,255,255,0.98);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.10);
+      padding: 44px 32px;
+      margin-top: 54px;
+      max-width: 950px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-section::before {
+      content: "";
+      position: absolute;
+      top: -40px; left: -40px;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle at 40% 40%, #667eea33 60%, transparent 100%);
+      z-index: 0;
+    }
+    .about-section::after {
+      content: "";
+      position: absolute;
+      bottom: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle at 60% 60%, #764ba233 60%, transparent 100%);
+      z-index: 0;
+    }
+    .about-section h1 {
+      font-size: 2.6rem;
+      color: #764ba2;
+      margin-bottom: 18px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      position: relative;
+      z-index: 1;
+    }
+    .about-section p {
+      font-size: 1.18rem;
+      color: #667eea;
+      margin-bottom: 28px;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+    .about-extra {
+      margin-top: 18px;
+      position: relative;
+      z-index: 1;
+    }
+    .about-extra h2 {
+      color: #764ba2;
+      font-size: 1.35rem;
+      margin-top: 32px;
+      margin-bottom: 10px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .about-extra p, .about-extra ul, .about-extra ol, .about-extra blockquote {
+      color: #555;
+      font-size: 1.05rem;
+      margin-bottom: 18px;
+      line-height: 1.6;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .about-extra blockquote {
+      background: #eef2ff;
+      border-left: 4px solid #764ba2;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-style: italic;
+      color: #667eea;
+    }
+    .about-timeline {
+      margin: 32px auto 18px auto;
+      max-width: 700px;
+      text-align: left;
+    }
+    .timeline-step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .timeline-icon {
+      font-size: 1.6rem;
+      margin-right: 12px;
+      color: #764ba2;
+    }
+    .timeline-text {
+      font-size: 1.08rem;
+      color: #555;
+    }
+    .about-team {
+      margin-top: 44px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .team-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #764ba2;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+    .team-list {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .team-member {
+      background: #f3f8ff;
+      border-radius: 12px;
+      padding: 18px 26px;
+      box-shadow: 0 2px 8px rgba(102,126,234,0.10);
+      min-width: 120px;
+      font-weight: 700;
+      color: #667eea;
+      font-size: 1.12rem;
+      transition: background 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .team-member:hover {
+      background: #e0e7ff;
+      transform: scale(1.07);
+    }
+    .about-cta {
+      margin-top: 36px;
+      background: linear-gradient(45deg,#667eea,#764ba2);
+      color: white;
+      padding: 26px 16px;
+      border-radius: 14px;
+      font-size: 1.18rem;
+      font-weight: 800;
+      box-shadow: 0 8px 22px rgba(102,126,234,0.13);
+      text-align: center;
+      letter-spacing: 0.5px;
+      position: relative;
+      z-index: 1;
+    }
+    .about-cta a {
+      color: #ffd700;
+      text-decoration: underline;
+      font-weight: 700;
+      margin-left: 6px;
+      font-size: 1.1rem;
+    }
+    @media (max-width:900px){
+      .about-section{padding:18px 6px;}
+      .team-list{flex-direction:column;gap:14px;}
+      .about-timeline{padding-left:0;}
+    }
+  </style>
+</head>
+<body class="bg-about">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-brand" target="_blank" rel="noopener noreferrer">🍳 CookSmart</a>
+      <ul class="navbar-menu">
+        <li><a href="index.html" target="_blank" rel="noopener noreferrer">Home</a></li>
+        <li><a href="discover.html" target="_blank" rel="noopener noreferrer">Discover</a></li>
+        <li><a href="trending.html" target="_blank" rel="noopener noreferrer">Trending</a></li>
+        <li><a href="about.html" class="active" target="_blank" rel="noopener noreferrer">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="about-section">
+      <h1> About CookSmart</h1>
+      <p>
+        Welcome to <b>CookSmart</b> – where technology meets taste!<br>
+        Our mission is to empower every home chef to create magic in the kitchen, reduce food waste, and connect with a vibrant cooking community.
+      </p>
+      <div class="about-extra">
+        <h2>🌱 Our Story</h2>
+        <p>
+          CookSmart started with a simple question: "What can I cook with what I have?" Inspired by busy students, families, and food lovers, we built a platform that makes cooking creative, easy, and social.
+        </p>
+        <h2>🛠️ How CookSmart Works</h2>
+        <div class="about-timeline">
+          <div class="timeline-step">
+            <span class="timeline-icon">📝</span>
+            <span class="timeline-text">List your ingredients – no matter how random!</span>
+          </div>
+          <div class="timeline-step">
+            <span class="timeline-icon">🔎</span>
+            <span class="timeline-text">Get instant, personalized recipe ideas.</span>
+          </div>
+          <div class="timeline-step">
+            <span class="timeline-icon">👩‍🍳</span>
+            <span class="timeline-text">Cook, share, and inspire others in our community.</span>
+          </div>
+        </div>
+        <h2>💡 Behind the Scenes</h2>
+        <p>
+          CookSmart uses smart algorithms and a rich recipe database to match your ingredients with thousands of dishes. Our tech helps you save time, money, and food!
+        </p>
+        <h2>🌟 Success Stories</h2>
+        <blockquote>
+          "CookSmart helped me turn leftovers into delicious meals!" – Priya S.<br>
+          "I love sharing my recipes and seeing what others create." – Rahul T.
+        </blockquote>
+        <h2>🌍 Social Impact</h2>
+        <p>
+          By encouraging creative cooking and ingredient use, CookSmart helps reduce food waste and supports healthier eating habits. Join us in making a difference, one meal at a time!
+        </p>
+        <h2>🔮 What's Next?</h2>
+        <ul>
+          <li>Step-by-step video recipes</li>
+          <li>Nutrition and calorie tracking</li>
+          <li>Smart shopping lists</li>
+          <li>Global cooking challenges</li>
+        </ul>
+        <h2>🤝 Contact & Feedback</h2>
+        <p>
+          Have ideas or feedback? <a href="tanvee3005@gmail.com">Email us</a> or connect on social media. Your suggestions help us grow!
+        </p>
+      </div>
+      <div class="about-team">
+        <div class="team-title">Meet the Team</div>
+        <div class="team-list">
+          <div class="team-member">Akshata</div>
+          <div class="team-member">Tanvi</div>
+          <div class="team-member">Pranjal</div>
+          <div class="team-member">Ketan</div>
+        </div>
+        <div style="color:#667eea;font-size:1rem;">We are passionate foodies and techies, building CookSmart for you!</div>
+      </div>
+      <div class="about-cta">
+        🚀 Ready to start your cooking adventure?
+        <a href="discover.html">Discover recipes now!</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 CookSmart. Made with ❤️ by Team CookSmart</p>
+  </footer>
+</body>
+</html>

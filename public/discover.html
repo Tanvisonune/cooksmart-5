@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CookSmart - Discover</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+  <style>
+    /* Custom background image for Discover page */
+    body.bg-discover {
+      background-image: linear-gradient(rgba(255,250,240,0.85), rgba(243,248,255,0.85)), url('https://static.vecteezy.com/system/resources/previews/008/660/558/non_2x/organic-food-background-hand-drawn-concept-free-vector.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .discover-header {
+      text-align: center;
+      margin-top: 36px;
+      margin-bottom: 18px;
+      color: #333;
+      background:  var(--card-bg, #f8fafc);
+      padding: 24px 12px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(15,23,42,0.10);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .discover-header h1 {
+      font-size: 2.1rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #764ba2;
+    }
+    .discover-header p {
+      font-size: 1.08rem;
+      color: #667eea;
+      margin-bottom: 0;
+    }
+    .main-content {
+      margin-top: 0;
+    }
+    .search-panel {
+      margin-bottom: 24px;
+    }
+    .recipes-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 32px 12px;
+      color: #667eea;
+      background: rgba(240, 235, 235, 0.85);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(102,126,234,0.08);
+    }
+    .empty-state-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
+    /* Enhanced filter buttons */
+    .quick-filters {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .filter-btn {
+      padding: 10px 16px;
+      border-radius: 20px;
+      border: 2px solid #e6edf3;
+      background: white;
+      color: #2d3748;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-btn:hover {
+      border-color: #667eea;
+      transform: translateY(-2px);
+    }
+    .filter-btn.active {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(102,126,234,0.3);
+    }
+    
+    /* Auto-search notification */
+    .auto-search-notice {
+      text-align: center;
+      color: #667eea;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      font-style: italic;
+    }
+    
+    /* Active filters display */
+    .active-filters-info {
+      text-align: center;
+      margin: 12px 0;
+      min-height: 24px;
+    }
+    
+    /* Filter instructions */
+    .filter-instructions {
+      text-align: center;
+      color: #667eea;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* Small helper styles for tags and recipe cards (kept minimal so it won't clash with your CSS) */
+    #ingredientsList .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 6px 6px 0 0;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(0,0,0,0.06);
+      font-weight: 600;
+      color: #2d3748;
+    }
+    #ingredientsList .tag button {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: #c53030;
+      padding: 0 4px;
+    }
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .recipe-card {
+      background: rgba(255,255,255,0.92);
+      padding: 14px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(15,23,42,0.06);
+      border: 1px solid rgba(0,0,0,0.02);
+    }
+    .recipe-card h3 {
+      margin: 0 0 6px 0;
+      font-size: 1.1rem;
+      color: #2d3748;
+    }
+    .recipe-card p { margin: 6px 0; color: #4a5568; font-size: 0.95rem; }
+
+    /* Recipe image styling */
+    .recipe-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* Nutrition list & collapsible */
+    .nutrition-section {
+      margin-top: 8px;
+    }
+    .nutrition-toggle {
+      margin-top: 4px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid #e2e8f0;
+      background: #edf2ff;
+      color: #4c51bf;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nutrition-toggle:hover {
+      background: #e0e7ff;
+    }
+    .nutrition-content {
+      display: none;
+      margin-top: 6px;
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 6px 10px;
+      border: 1px dashed #cbd5e0;
+    }
+    .nutrition-content.open {
+      display: block;
+    }
+    .nutrition-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 4px 0 0;
+    }
+    .nutrition-list li {
+      font-size: 0.9rem;
+      color: #4a5568;
+    }
+
+    @media (max-width:900px){
+      .discover-header { padding: 16px 6px; font-size: 1.1rem; }
+      .quick-filters {
+        gap: 6px;
+      }
+      .filter-btn {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-discover">
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-brand" target="_blank" rel="noopener noreferrer">🍳 CookSmart</a>
+      <ul class="navbar-menu">
+        <li><a href="index.html" target="_blank" rel="noopener noreferrer">Home</a></li>
+        <li><a href="discover.html" class="active" target="_blank" rel="noopener noreferrer">Discover</a></li>
+        <li><a href="trending.html" target="_blank" rel="noopener noreferrer">Trending</a></li>
+        <li><a href="about.html" target="_blank" rel="noopener noreferrer">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Discover Header Section -->
+  <div class="discover-header">
+    <h1>Discover Recipes Tailored For You</h1>
+    <p>Enter your ingredients and recipes will appear automatically. Combine multiple filters for precise results!</p>
+  </div>
+
+  <div class="container">
+    <section class="main-content" id="discover">
+      <div class="search-panel">
+        <div class="ingredient-input-section">
+          <h3>🥘 What's in your kitchen?</h3>
+          <div class="input-group">
+            <input type="text" id="ingredientInput" class="ingredient-input" placeholder="Enter an ingredient (e.g., chicken, tomatoes...)" onkeypress="handleIngredientKeyPress(event)">
+            <button class="add-ingredient-btn" onclick="addIngredient()">Add</button>
+          </div>
+          <div class="auto-search-notice">
+            💡 Recipes will appear automatically as you add ingredients
+          </div>
+          <div id="ingredientsList" class="ingredients-list"></div>
+
+          <div class="active-filters-info" id="activeFilters">
+            <span style="color:#667eea; font-size:0.9rem;">Showing all recipes</span>
+          </div>
+
+          <div class="quick-filters">
+            <button class="filter-btn active" data-filter="all">
+              <span>🍽️</span> All Recipes
+            </button>
+            <button class="filter-btn" data-filter="vegetarian">
+              <span>🥗</span> Vegetarian
+            </button>
+            <button class="filter-btn" data-filter="nonveg">
+              <span>🍗</span> Non-Veg
+            </button>
+            <button class="filter-btn" data-filter="quick">
+              <span>⚡</span> Quick (&lt; 30min)
+            </button>
+            <button class="filter-btn" data-filter="easy">
+              <span>😊</span> Easy
+            </button>
+            <button class="filter-btn" data-filter="high_rating">
+              <span>⭐</span> Top Rated
+            </button>
+          </div>
+          
+          <div class="filter-instructions">
+            💡 Click any one filter to refine your results
+          </div>
+        </div>
+      </div>
+
+      <div class="recipes-section">
+        <div class="recipes-header">
+          <h3>🍽️ Recipe Results</h3>
+          <span id="recipeCount">0 recipes found</span>
+        </div>
+        <div id="recipesContainer" class="recipe-grid">
+          <div class="empty-state">
+            <div class="empty-state-icon">🔍</div>
+            <h4>Ready to cook something amazing?</h4>
+            <p>Add ingredients from your kitchen to discover personalized recipes!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 CookSmart. Made with ❤️</p>
+  </footer>
+
+  <!-- ============================
+       Backend-connected script
+       (DO NOT REMOVE — placed intentionally here)
+       ============================ -->
+  <script>
+    const API = "/api";
+
+
+  // -------------------
+  // State variables
+  // -------------------
+  let selectedIngredients = [];
+  let activeFilters = new Set(["all"]);
+
+  // -------------------
+  // UI Helpers
+  // -------------------
+  function renderIngredients() {
+    const list = document.getElementById("ingredientsList");
+    list.innerHTML = selectedIngredients
+      .map(ing => `<span class="tag">${ing} <button onclick="removeIngredient('${ing}')">✖</button></span>`)
+      .join("");
+  }
+
+  function updateRecipeCount(count) {
+    document.getElementById("recipeCount").innerText = `${count} recipes found`;
+  }
+
+  // -------------------
+  // Ingredient Handlers
+  // -------------------
+  function handleIngredientKeyPress(event) {
+    if (event.key === "Enter") addIngredient();
+  }
+
+  function addIngredient() {
+    const input = document.getElementById("ingredientInput");
+    let val = input.value.trim().toLowerCase();
+    if (!val) return;
+
+    if (!selectedIngredients.includes(val)) {
+      selectedIngredients.push(val);
+    }
+
+    input.value = "";
+    renderIngredients();
+    fetchRecipes();
+  }
+
+  function removeIngredient(ing) {
+    selectedIngredients = selectedIngredients.filter(x => x !== ing);
+    renderIngredients();
+    fetchRecipes();
+  }
+
+  // -------------------
+  // Filter Buttons (single active at a time)
+  // -------------------
+  document.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const filter = btn.getAttribute("data-filter");
+
+      // Clear all active
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+
+      // Set this as active
+      btn.classList.add("active");
+
+      // Only one active filter at a time
+      activeFilters = new Set([filter]);
+
+      fetchRecipes();
+    });
+  });
+
+  // -------------------
+  // Fetch Recipes from Backend
+  // -------------------
+  async function fetchRecipes() {
+    try {
+      let url = `${API}/recipes`;
+
+      // If ingredients selected → use backend search API
+      if (selectedIngredients.length > 0) {
+        const ing = selectedIngredients.join(",");
+        url = `${API}/search?ingredients=${encodeURIComponent(ing)}&mode=and`;
+      }
+
+      let res = await fetch(url);
+      let recipes = await res.json();
+
+      // Apply extra filters on frontend
+      recipes = applyFilters(recipes);
+
+      renderRecipes(recipes);
+      updateRecipeCount(recipes.length);
+
+    } catch (err) {
+      console.error("Error fetching recipes:", err);
+      const container = document.getElementById("recipesContainer");
+      container.innerHTML = `<div class="empty-state"><div class="empty-state-icon">⚠️</div><h4>Error loading recipes</h4><p>${err.message || err}</p></div>`;
+    }
+  }
+
+  // -------------------
+  // Apply Local Filters
+  // -------------------
+  function applyFilters(recipes) {
+    // activeFilters now always has exactly one value
+    const [filter] = activeFilters;
+    if (!filter || filter === "all") return recipes;
+
+    return recipes.filter(r => {
+      if (filter === "vegetarian") {
+        return (r.isVegetarian === true || r.type === "veg");
+      }
+      if (filter === "nonveg") {
+        return (r.isVegetarian === false || r.type === "nonveg");
+      }
+      if (filter === "quick") {
+        const t = (typeof r.cookingTime === "number" ? r.cookingTime : r.time);
+        return (typeof t === "number" && t <= 30);
+      }
+      if (filter === "easy") {
+        return r.difficulty === "easy";
+      }
+      if (filter === "high_rating") {
+        const rating = (typeof r.rating === "number" ? r.rating : 0);
+        return rating >= 4;
+      }
+      return true;
+    });
+  }
+
+  // -------------------
+  // Render Recipe Cards
+  // -------------------
+  function renderRecipes(list) {
+    const container = document.getElementById("recipesContainer");
+
+    if (!Array.isArray(list) || list.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">😕</div>
+          <h4>No recipes found</h4>
+          <p>Try adding different ingredients!</p>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = list.map((r, index) => {
+      // image: support filename in r.image or full url in r.imageUrl
+      const imageFile = r.image || r.imageUrl;
+      const imageUrl = imageFile ? `images/${escapeHtml(imageFile)}` : null;
+
+      // time: prefer cookingTime, fall back to time, else "N/A"
+      const timeVal = (r.cookingTime != null ? r.cookingTime : r.time);
+      const timeDisplay = (timeVal != null && timeVal !== "") ? timeVal : "N/A";
+
+      // Nutrition HTML if present
+      let nutritionHtml = "";
+      if (r.nutrition && typeof r.nutrition === "object") {
+        const items = Object.entries(r.nutrition)
+          .map(([key, value]) => `
+            <li><strong>${escapeHtml(capitalize(key))}:</strong> ${escapeHtml(value)}</li>
+          `)
+          .join("");
+
+        if (items) {
+          nutritionHtml = `
+            <div class="nutrition-section">
+              <button class="nutrition-toggle" onclick="toggleNutrition(${index})">
+                Nutrition <span>▾</span>
+              </button>
+              <div class="nutrition-content" data-nutrition="${index}">
+                <ul class="nutrition-list">
+                  ${items}
+                </ul>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      return `
+      <div class="recipe-card">
+        ${imageUrl ? `
+          <img 
+            src="${imageUrl}" 
+            alt="${escapeHtml(r.name || r.title || "Recipe image")}" 
+            class="recipe-image"
+            onerror="this.style.display='none';"
+          />
+        ` : ""}
+
+        <h3>${escapeHtml(r.name || r.title || "Untitled Recipe")}</h3>
+        <p>${escapeHtml(r.description || "")}</p>
+        <p><strong>Ingredients:</strong> ${
+          Array.isArray(r.ingredients)
+            ? escapeHtml(r.ingredients.join(", "))
+            : escapeHtml(String(r.ingredients || ""))
+        }</p>
+        <p><strong>Time:</strong> ${escapeHtml(timeDisplay)} min</p>
+        <p><strong>Difficulty:</strong> ${escapeHtml(r.difficulty || "Unknown")}</p>
+        <p><strong>Rating:</strong> ⭐ ${escapeHtml(r.rating != null ? r.rating : "N/A")}</p>
+        ${nutritionHtml}
+      </div>
+      `;
+    }).join("");
+  }
+
+  // small helper to avoid XSS if any text contains HTML
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function capitalize(str) {
+    const s = String(str);
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  // Toggle nutrition section open/close
+  function toggleNutrition(index) {
+    const el = document.querySelector(`.nutrition-content[data-nutrition="${index}"]`);
+    if (!el) return;
+    el.classList.toggle("open");
+  }
+
+  // Load everything on page start
+  fetchRecipes();
+  </script>
+
+</body>
+</html>
